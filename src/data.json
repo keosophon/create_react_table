@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "username":"ks1",
+        "email":"ks1@gmail.com",
+        "mobile":"0212000001"
+    },
+    {
+        "id": 2,
+        "username":"ks2",
+        "email":"ks2@gmail.com",
+        "mobile":"0212000002"
+    }
+]
