@@ -4,9 +4,21 @@ import Data from "./data.json";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function AddMember() {
+function AddMember({ setData }) {
+  const handleAddMember = (event) => {
+    event.preventDefault();
+    const formElements = event.target.elements;
+    setData((prevData) =>
+      prevData.concat({
+        id: prevData.length + 1,
+        username: formElements.username.value,
+        email: formElements.email.value,
+        mobile: formElements.mobile.value,
+      })
+    );
+  };
   return (
-    <form>
+    <form onSubmit={handleAddMember}>
       <input type="text" name="username" placeholder="enter usernamer" />
       <input
         type="text"
@@ -29,19 +41,21 @@ function App() {
   const [data, setData] = useState(Data);
   return (
     <div className="container">
-      <div className="mt-3">
-        <AddMember />
+      <div>
+        <AddMember setData={setData} />
       </div>
       <div className="mt-3">
         <table className="table table-bordered table-striped">
           <thead className="thead-dark">
-            <th>Username</th>
-            <th>Email</th>
-            <th>Mobile</th>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Mobile</th>
+            </tr>
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr>
+              <tr key={item.id}>
                 <td>{item.username}</td>
 
                 <td>{item.email}</td>
