@@ -37,8 +37,9 @@ function AddMember({ setData }) {
   );
 }
 
-function UpdateMember({ currentValues, data, setData }) {
-  const [id, username, email, mobile] = [...currentValues];
+function UpdateMember({ currentValues, data, setData, setEditStatus }) {
+  const [id, username, email, mobile] = currentValues;
+
   const handleName = (e) => {
     const name = e.target.value;
     const updatedData = data.map((item) =>
@@ -95,9 +96,6 @@ function UpdateMember({ currentValues, data, setData }) {
         <button type="submit" className="ms-2 btn btn-warning">
           Update
         </button>
-        <button type="button" className="ms-2 btn btn-info">
-          Cancel
-        </button>
       </td>
     </tr>
   );
@@ -124,6 +122,11 @@ function App() {
         : item
     );
     setEditStatus(-1);
+    setData(updatedData);
+  };
+
+  const handleDelete = (id) => {
+    const updatedData = data.filter((item) => item.id !== id);
     setData(updatedData);
   };
   return (
@@ -153,6 +156,7 @@ function App() {
                       ]}
                       data={data}
                       setData={setData}
+                      setEditStatus={setEditStatus}
                     />
                   ) : (
                     <tr key={item.id}>
@@ -169,7 +173,11 @@ function App() {
                         >
                           Edit
                         </button>
-                        <button type="button" className="btn btn-danger ms-2">
+                        <button
+                          type="button"
+                          className="btn btn-danger ms-2"
+                          onClick={(e) => handleDelete(item.id)}
+                        >
                           Delete
                         </button>
                       </td>
